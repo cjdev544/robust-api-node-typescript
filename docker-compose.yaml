@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  db:
+    image: mongo:4.4.6
+    container_name: mongo-node-ts
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGODB_DATABASE: ts-node
+    volumes:
+      - ./mongo:/data/db
