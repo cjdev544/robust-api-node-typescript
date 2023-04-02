@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express'
-import jwt, { JwtPayload } from 'jsonwebtoken'
+import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
 import { AuthRequest } from '../controllers/auth'
 import { User, UserModel } from '../models/user'
 
@@ -33,7 +33,6 @@ export const jwtValidator = async (
     next()
     return
   } catch (error) {
-    console.error(error)
-    throw new Error('token is expired or no valid')
+    return res.status(400).json({ message: (<VerifyErrors>error).message })
   }
 }

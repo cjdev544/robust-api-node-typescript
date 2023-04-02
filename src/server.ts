@@ -5,6 +5,7 @@ import morgan from 'morgan'
 import { dbConnection } from './database/config'
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
+import categoriesRoutes from './routes/categories'
 
 class Server {
   #app: Application
@@ -13,6 +14,7 @@ class Server {
   // Routes
   #usersPath: string
   #authPath: string
+  #categoriesPath: string
 
   constructor() {
     this.#app = express()
@@ -21,6 +23,7 @@ class Server {
     // Routes
     this.#usersPath = '/api/users'
     this.#authPath = '/api/auth'
+    this.#categoriesPath = '/api/categories'
     // Methods
     this.connectDB()
     this.middleware()
@@ -40,6 +43,7 @@ class Server {
   routes() {
     this.#app.use(this.#usersPath, userRoutes)
     this.#app.use(this.#authPath, authRoutes)
+    this.#app.use(this.#categoriesPath, categoriesRoutes)
   }
 
   listen() {

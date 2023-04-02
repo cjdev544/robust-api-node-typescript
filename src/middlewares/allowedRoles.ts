@@ -11,8 +11,10 @@ export const allowedRoles = (...roles: string[]) => {
 
     const userRole = req.user.role
 
-    if (!roles.includes(userRole))
-      return res.status(401).json({ message: 'invalid role' })
+    if (userRole) {
+      if (!roles.includes(userRole))
+        return res.status(401).json({ message: 'invalid role' })
+    }
 
     next()
     return

@@ -1,10 +1,10 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import bcrypt from 'bcrypt'
 
 import { User, UserModel } from '../models/user'
 import { AuthRequest } from './auth'
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: AuthRequest, res: Response) => {
   const body = req.body
   const { email, password, name, role, img }: User = body
   try {
@@ -33,7 +33,7 @@ export const createUser = async (req: Request, res: Response) => {
   }
 }
 
-export const getAllUsers = async (req: Request, res: Response) => {
+export const getAllUsers = async (req: AuthRequest, res: Response) => {
   const { limit = 5, skip = 0 } = req.query
   const query = { state: true }
   try {
@@ -49,7 +49,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 }
 
-export const getUser = async (req: Request, res: Response) => {
+export const getUser = async (req: AuthRequest, res: Response) => {
   const { id } = req.params
   try {
     const user = await UserModel.findById(id)
@@ -61,7 +61,7 @@ export const getUser = async (req: Request, res: Response) => {
   }
 }
 
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: AuthRequest, res: Response) => {
   const { id } = req.params
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { uid, email, password, state, google, ...rest }: User = req.body

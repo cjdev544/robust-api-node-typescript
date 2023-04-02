@@ -16,7 +16,7 @@ import {
   allowedRoles,
   isAdminUser,
   jwtValidator,
-  validationUserFields
+  validationFields
 } from '../middlewares'
 
 const router = Router()
@@ -34,7 +34,7 @@ router.post(
       .isLength({ min: 6 }),
     check('role').custom(isRoleExist)
   ],
-  validationUserFields,
+  validationFields,
   createUser
 )
 
@@ -47,7 +47,7 @@ router.delete(
     check('id', 'Id is not valid').isMongoId(),
     check('id', 'User not found').custom(isUserNotExistById)
   ],
-  validationUserFields,
+  validationFields,
   deleteUser
 )
 
@@ -56,7 +56,7 @@ router.get('/', getAllUsers)
 router.get(
   '/:id',
   [check('id', 'Id is not valid').isMongoId()],
-  validationUserFields,
+  validationFields,
   getUser
 )
 
@@ -72,7 +72,7 @@ router.put(
     check('id', 'User not found').custom(isUserNotExistById),
     check('role').custom(isRoleExist)
   ],
-  validationUserFields,
+  validationFields,
   updateUser
 )
 
