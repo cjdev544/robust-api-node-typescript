@@ -4,9 +4,52 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restricted Access</title>
+    <title>Google Sing-in</title>
   </head>
   <body>
-    <h1>Restricted Access</h1>
+    <h1>Google Sing-in</h1>
+    <hr />
+    <div
+      id="g_id_onload"
+      data-client_id="1095706961944-fcloqoa6quau1fa3f8o8tb2c0u8udsbt.apps.googleusercontent.com"
+      data-auto_prompt="false"
+      data-callback="handleCredentialResponse"
+    ></div>
+    <div
+      class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left"
+    ></div>
+
+    <button id="sing-out">Sing out</button>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      function handleCredentialResponse(response) {
+        const body = { id_token: response.credential }
+        fetch('http://localhost:3000/api/auth/google', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+          .then((res) => res.json())
+          .then((data) => localStorage.setItem('userEmail', data.user.email))
+          .catch(console.error)
+      }
+
+      const button = document.querySelector('#sing-out')
+      button.addEventListener('click', () => {
+        google.accounts.id.disableAutoSelect()
+        google.accounts.id.revoke(localStorage.getItem('userEmail'), (done) => {
+          localStorage.clear()
+        })
+      })
+    </script>
   </body>
 </html>
