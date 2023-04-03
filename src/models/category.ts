@@ -30,4 +30,4 @@ categorySchema.methods.toJSON = function () {
   return rest
 }
 
-export const CategoryModel = model('Category', categorySchema)
+export const CategoryModel = model<Category>('Category', categorySchema)

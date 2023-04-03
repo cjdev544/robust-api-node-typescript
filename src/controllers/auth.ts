@@ -4,9 +4,10 @@ import bcrypt from 'bcrypt'
 import { User, UserModel } from '../models/user'
 import { jwtGenerator } from '../helpers/jwtGenerator'
 import { googleVerify } from '../helpers/googleVerify'
+import { ObjectId } from 'mongoose'
 
 export interface AuthRequest extends Request {
-  uid?: string
+  uid?: ObjectId
   user?: User
 }
 

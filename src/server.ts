@@ -6,6 +6,7 @@ import { dbConnection } from './database/config'
 import userRoutes from './routes/users'
 import authRoutes from './routes/auth'
 import categoriesRoutes from './routes/categories'
+import productsRoutes from './routes/products'
 
 class Server {
   #app: Application
@@ -15,6 +16,7 @@ class Server {
   #usersPath: string
   #authPath: string
   #categoriesPath: string
+  #productsPath: string
 
   constructor() {
     this.#app = express()
@@ -24,6 +26,8 @@ class Server {
     this.#usersPath = '/api/users'
     this.#authPath = '/api/auth'
     this.#categoriesPath = '/api/categories'
+    this.#productsPath = '/api/products'
+
     // Methods
     this.connectDB()
     this.middleware()
@@ -44,6 +48,7 @@ class Server {
     this.#app.use(this.#usersPath, userRoutes)
     this.#app.use(this.#authPath, authRoutes)
     this.#app.use(this.#categoriesPath, categoriesRoutes)
+    this.#app.use(this.#productsPath, productsRoutes)
   }
 
   listen() {

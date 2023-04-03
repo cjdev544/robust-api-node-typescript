@@ -1,10 +1,11 @@
 import { NextFunction, Response } from 'express'
 import jwt, { JwtPayload, VerifyErrors } from 'jsonwebtoken'
+import { ObjectId } from 'mongoose'
 import { AuthRequest } from '../controllers/auth'
 import { User, UserModel } from '../models/user'
 
 interface Payload extends JwtPayload {
-  uid: string
+  uid: ObjectId
 }
 
 export const jwtValidator = async (
