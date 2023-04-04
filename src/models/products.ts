@@ -8,6 +8,7 @@ export interface Product {
   state?: boolean
   description?: string
   available?: boolean
+  img?: string
 }
 
 const productSchema = new Schema({
@@ -40,6 +41,9 @@ const productSchema = new Schema({
   available: {
     type: Boolean,
     default: true
+  },
+  img: {
+    type: String
   }
 })
 
