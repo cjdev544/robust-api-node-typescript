@@ -9,6 +9,7 @@ export interface Product {
   description?: string
   available?: boolean
   img?: string
+  imgUrl?: string
 }
 
 const productSchema = new Schema({
@@ -43,6 +44,9 @@ const productSchema = new Schema({
     default: true
   },
   img: {
+    type: String
+  },
+  imgUrl: {
     type: String
   }
 })

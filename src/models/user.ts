@@ -6,6 +6,7 @@ export interface User {
   password: string
   email: string
   img?: string
+  imgUrl?: string
   role?: string
   state?: boolean
   google?: boolean
@@ -26,6 +27,7 @@ const userSchema = new Schema<User>({
     required: true
   },
   img: { type: String },
+  imgUrl: { type: String },
   role: {
     type: String,
     default: 'USER_ROLE'

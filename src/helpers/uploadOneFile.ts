@@ -2,7 +2,6 @@ import { Request } from 'express'
 import path from 'path'
 import fs from 'fs'
 import multer from 'multer'
-import { v4 as uuidv4 } from 'uuid'
 
 const validExtDefault = ['.jpg', '.png', '.gif', '.jpeg']
 
@@ -15,8 +14,9 @@ export const uploadOneFile = (
     destination: function (_req, _file, cb) {
       cb(null, uploadPath)
     },
-    filename: function (_req, file, cb) {
-      cb(null, uuidv4() + path.extname(file.originalname))
+    filename: function (req, file, cb) {
+      const { parameter } = req.params
+      cb(null, parameter + path.extname(file.originalname))
     }
   })
 

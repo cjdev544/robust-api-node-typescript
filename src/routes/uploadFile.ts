@@ -1,9 +1,9 @@
 import { Router } from 'express'
-
 import {
   getImgFromParameterInCollection,
-  updateFile,
-  uploadFile
+  // updateFile,
+  uploadFile,
+  uploadToCloudinary
 } from '../controllers/uploadFile'
 import { uploadOneFile } from '../helpers/uploadOneFile'
 
@@ -14,10 +14,12 @@ const postUpload = uploadOneFile(folderName)
 
 router.post('/', postUpload.single('upload'), uploadFile)
 
+//router.put('/:collection/:parameter', postUpload.single('upload'), updateFile)
+
 router.put(
   '/:collection/:parameter',
   postUpload.single('upload'),
-  updateFile(folderName)
+  uploadToCloudinary
 )
 
 router.get(
