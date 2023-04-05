@@ -1,5 +1,6 @@
 import express, { Application } from 'express'
 import path from 'path'
+import cors from 'cors'
 import morgan from 'morgan'
 
 import { dbConnection } from './database/config'
@@ -13,7 +14,6 @@ import userRoutes from './routes/users'
 class Server {
   #app: Application
   #port: string
-  #rootPath: string
   // Routes
   #authPath: string
   #categoriesPath: string
@@ -25,7 +25,6 @@ class Server {
   constructor() {
     this.#app = express()
     this.#port = process.env.PORT || '3000'
-    this.#rootPath = path.dirname(__dirname)
     // Routes
     this.#authPath = '/api/auth'
     this.#categoriesPath = '/api/categories'
@@ -45,10 +44,11 @@ class Server {
   }
 
   middleware() {
+    this.#app.use(cors())
     this.#app.use(express.json())
     this.#app.use(express.urlencoded({ extended: true }))
     this.#app.use(morgan('dev'))
-    this.#app.use(express.static(path.join(this.#rootPath, 'public')))
+    this.#app.use(express.static(path.join(__dirname, '../public')))
   }
 
   routes() {
